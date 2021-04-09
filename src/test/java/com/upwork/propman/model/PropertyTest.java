@@ -2,7 +2,6 @@ package com.upwork.propman.model;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assertions.fail;
 
 import org.junit.jupiter.api.Test;
 
@@ -96,9 +95,11 @@ class PropertyTest {
 
 	@Test
 	void testSetContact() {
+		
 		Property property = new Property();
 		property.setContact("918043311555");
 		assertEquals("918043311555", property.getContact());
+	
 	}
 
 	@Test
