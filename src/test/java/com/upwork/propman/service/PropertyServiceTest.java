@@ -27,11 +27,11 @@ class PropertyServiceTest {
 	void testAddNewProperty() {
 		Property in = new Property("New York", "West Village", "12", "+12121111111", true);
 		int saved = propertyService.addNewProperty(in);
-		List<Property> list = propertyService.searchExistingProperty(in.getCity(), in.getLocality());
-		Property out = list.get(0);
+		Optional<Property> retreivedOptional = propertyRepository.findById(saved);
+		Property out = retreivedOptional.get();
 		assertEquals(in.getAddress(), out.getAddress());
 		assertThat(saved).isPositive();
-		assertEquals(in.getId(),out.getId());
+		assertEquals(in.getId(), out.getId());
 		propertyRepository.deleteAll();
 	}
 
@@ -41,34 +41,36 @@ class PropertyServiceTest {
 		int saved = propertyService.addNewProperty(in);
 		Optional<Property> retreivedOptional = propertyRepository.findById(saved);
 		Property retreived = null;
-	
-		if(retreivedOptional.isPresent()) 
-			 retreived = retreivedOptional.get();
-	
+
+		if (retreivedOptional.isPresent())
+			retreived = retreivedOptional.get();
+
 		Property test = new Property("New York", "West Village", "122222", "+12121111111", true);
-		int s = propertyService.modifyExistingProperty(saved,test);
-		assertEquals(retreived.getId(),s);
+		int s = propertyService.modifyExistingProperty(saved, test);
+		assertEquals(retreived.getId(), s);
 	}
 
 	@Test
 	void testApproveExistingProperty() {
-		Property in = new Property("New York", "West Village", "12", "+12121111111", true);
-		propertyService.addNewProperty(in);
-		propertyService.approveExistingProperty("New York", "West Village", "12");
-		List<Property> list = propertyService.searchExistingProperty("New York", "West Village");
-		Property out = list.get(0);
-		assertTrue(out.isApproved());
-		propertyRepository.deleteAll();		
+		Property in = new Property("New York", "West Village", "12", "+12121111111", false);
+		int id = propertyService.addNewProperty(in);
+		String out = propertyService.approveExistingProperty(id);
+		assertEquals("APPROVED", out);
+		propertyRepository.deleteAll();
 	}
 
 	@Test
 	void testSearchExistingProperty() {
-		Property in = new Property("New York", "West Village", "12", "+12121111111", true);
-		propertyService.addNewProperty(in);
-		List<Property> list = propertyService.searchExistingProperty(in.getCity(), in.getLocality());
-		Property out = list.get(0);
-		assertEquals(in.getAddress(), out.getAddress());
-		propertyRepository.deleteAll();
+		Property ins = new Property("New York", "West Village", "12", "+12121111111", true);
+		int id = propertyService.addNewProperty(ins);
+		Property retreived = propertyService.search(id);
+
+		assertEquals("New York", retreived.getCity());
+		assertEquals("West Village", retreived.getLocality());
+		assertEquals("12", retreived.getAddress());
+		assertEquals("+12121111111", retreived.getContact());
+		assertTrue(retreived.isApproved());
+
 	}
 
 }

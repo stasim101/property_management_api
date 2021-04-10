@@ -45,21 +45,26 @@ public class PropertyService {
 		return existingPropertyObject.getId();
 	}
 
-	public int approveExistingProperty(String city, String locality, String address) {
-		List<Property> list = propertyRepository.search(city, locality);
-		for (Property property : list) {
-			if (property.getAddress().equals(address.trim())) {
-				property.setApproved(true);
-				propertyRepository.save(property);
-				break;
-			}
-		}
-		return 0;
+	public String approveExistingProperty(int id) {
+
+		Optional<Property> retreivedOptional = propertyRepository.findById(id);
+		Property retreived = null;
+
+		if (!retreivedOptional.isPresent())
+			return "INVALID ID";
+
+		retreived = retreivedOptional.get();
+		retreived.setApproved(true);
+		propertyRepository.save(retreived);
+
+		return "APPROVED";
 	}
 
-	public List<Property> searchExistingProperty(String city, String locality) {
-		List<Property> list = propertyRepository.search(city, locality);
-		return list;
-	};
+	public Property search(int id) {
+		Optional<Property> optionalProperty = propertyRepository.findById(id);
+		if (optionalProperty.isPresent())
+			return optionalProperty.get();
+		return null;
+	}
 
 }
