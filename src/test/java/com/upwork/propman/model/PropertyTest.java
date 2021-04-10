@@ -1,10 +1,16 @@
 package com.upwork.propman.model;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 
+import com.upwork.propman.repository.PropertyRepository;
+
+@SpringBootTest
 class PropertyTest {
 
 	private String city = "New Delhi";
@@ -12,6 +18,9 @@ class PropertyTest {
 	private String address = "House no.-3, First floor";
 	private String contact = "+919999999999";
 	private boolean approved = true;
+
+	@Autowired
+	private PropertyRepository propertyRepository;
 
 	@Test
 	void testProperty() {
@@ -23,6 +32,16 @@ class PropertyTest {
 		assertEquals(address, property.getAddress());
 		assertEquals(contact, property.getContact());
 		assertTrue(property.isApproved());
+
+	}
+
+	@Test
+	void testGetId() {
+
+		Property property = new Property(city, locality, address, contact, approved);
+		Property p = propertyRepository.save(property);
+		assertThat(p.getId()).isPositive();
+		propertyRepository.deleteAll();
 
 	}
 
@@ -95,11 +114,11 @@ class PropertyTest {
 
 	@Test
 	void testSetContact() {
-		
+
 		Property property = new Property();
 		property.setContact("918043311555");
 		assertEquals("918043311555", property.getContact());
-	
+
 	}
 
 	@Test

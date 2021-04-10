@@ -28,6 +28,11 @@ public class Property {
 	public Property() {
 	}
 
+	
+	public int getId() {
+		return id;
+	}
+
 	public String getCity() {
 		return city;
 	}
