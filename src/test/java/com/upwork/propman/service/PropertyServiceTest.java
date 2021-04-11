@@ -4,7 +4,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import java.util.List;
 import java.util.Optional;
 
 import org.junit.jupiter.api.Test;
@@ -70,7 +69,6 @@ class PropertyServiceTest {
 		assertEquals("12", retreived.getAddress());
 		assertEquals("+12121111111", retreived.getContact());
 		assertTrue(retreived.isApproved());
-
 	}
 
 }

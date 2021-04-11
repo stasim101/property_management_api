@@ -1,7 +1,5 @@
 package com.upwork.propman.controller;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -11,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.upwork.propman.model.Property;
+import com.upwork.propman.service.ApiKeyService;
 import com.upwork.propman.service.PropertyService;
 
 @RestController
@@ -18,6 +17,9 @@ public class PropertyController {
 
 	@Autowired
 	private PropertyService propertyService;
+
+	@Autowired
+	private ApiKeyService apiKeyService;
 
 	@PutMapping(value = "/new")
 	public int createProperty(@RequestBody Property property) {
@@ -37,6 +39,11 @@ public class PropertyController {
 	@GetMapping(value = "/search/{id}")
 	public Property searchProperty(@PathVariable("id") int id) {
 		return propertyService.search(id);
+	}
+
+	@PutMapping(value = "/generateKey/{username}")
+	public String createApiKey(@PathVariable String username) {
+		return apiKeyService.generateKey(username);
 	}
 
 }

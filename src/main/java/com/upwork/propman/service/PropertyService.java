@@ -1,22 +1,27 @@
 package com.upwork.propman.service;
 
-import java.util.List;
 import java.util.Optional;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.upwork.propman.auth.ApiKeyRequestFilter;
 import com.upwork.propman.model.Property;
 import com.upwork.propman.repository.PropertyRepository;
 
 @Service
 public class PropertyService {
 
+	private static final Logger LOG = LoggerFactory.getLogger(ApiKeyRequestFilter.class);
+
 	@Autowired
 	private PropertyRepository propertyRepository;
 
 	public int addNewProperty(Property property) {
-		return propertyRepository.save(property).getId();
+		LOG.info("Added new property");
+		return propertyRepository.save(property).getId();		
 	}
 
 	public int modifyExistingProperty(int id, Property property) {
@@ -41,7 +46,7 @@ public class PropertyService {
 			existingPropertyObject.setCity(property.getLocality());
 
 		propertyRepository.save(existingPropertyObject);
-
+		LOG.info("Given property updated");
 		return existingPropertyObject.getId();
 	}
 
@@ -50,20 +55,28 @@ public class PropertyService {
 		Optional<Property> retreivedOptional = propertyRepository.findById(id);
 		Property retreived = null;
 
-		if (!retreivedOptional.isPresent())
+		if (!retreivedOptional.isPresent()) {
+			LOG.info("Invalid ID provided for approval");
 			return "INVALID ID";
-
+		}
 		retreived = retreivedOptional.get();
 		retreived.setApproved(true);
 		propertyRepository.save(retreived);
-
+		LOG.info("Property Approved: "+id);
 		return "APPROVED";
 	}
 
 	public Property search(int id) {
+		LOG.info("Searching property: "+id);
+
 		Optional<Property> optionalProperty = propertyRepository.findById(id);
-		if (optionalProperty.isPresent())
-			return optionalProperty.get();
+
+		if (optionalProperty.isPresent()) {
+			LOG.info("Found property: "+id);
+			return optionalProperty.get();			
+		}
+		
+		LOG.info("Could not found property: "+id);
 		return null;
 	}
 
