@@ -1,21 +1,22 @@
 package com.upwork.propman.service;
 
+import java.util.Optional;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import com.upwork.propman.auth.ApiKeyRequestFilter;
 import com.upwork.propman.model.ApiKey;
 import com.upwork.propman.repository.ApiKeyRepository;
 
 @Service
 public class ApiKeyService {
 
-	private static final Logger LOG = LoggerFactory.getLogger(ApiKeyRequestFilter.class);
+	private static final Logger LOG = LoggerFactory.getLogger(ApiKeyService.class);
 
 	@Autowired
 	private ApiKeyRepository apiKeyRepository;
+	
 	private static final String ALPHA_NUMERIC_STRING = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
 
 	public String generateKey(String username) {
@@ -39,7 +40,7 @@ public class ApiKeyService {
 
 	}
 
-	public static String getRandomAlphaNumeric() {
+	public String getRandomAlphaNumeric() {
 		// count is the length of random string to create.
 		int count = 10;
 		StringBuilder builder = new StringBuilder();
@@ -50,4 +51,13 @@ public class ApiKeyService {
 		return builder.toString();
 	}
 
+	public String getKey(String username) {
+
+		Optional<ApiKey> optionalApiKey = apiKeyRepository.findByUsername(username);
+
+		if (optionalApiKey.isPresent())
+			return optionalApiKey.get().getKey();
+
+		return "";
+	}
 }

@@ -7,14 +7,13 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.upwork.propman.auth.ApiKeyRequestFilter;
 import com.upwork.propman.model.Property;
 import com.upwork.propman.repository.PropertyRepository;
 
 @Service
 public class PropertyService {
 
-	private static final Logger LOG = LoggerFactory.getLogger(ApiKeyRequestFilter.class);
+	private static final Logger LOG = LoggerFactory.getLogger(PropertyService.class);
 
 	@Autowired
 	private PropertyRepository propertyRepository;
