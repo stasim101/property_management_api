@@ -18,24 +18,25 @@ It is an POC created by keeping an assumption of SpeedHome in initial stage.
 
 ### Installing
 
-* How/where to download your program
-* Any modifications needed to be made to files/folders
+* Download the source code from repository and unpack the zip file. 
+* Build the project by running maven command 'mvn clean install' from corresponding directory.
+* Run the project using maven command 'mvn spring-boot:run' from same directory.
 
 ### Executing program
 
-* Download the source code from reposiotry and unpack the zip file.
-* Build the project by running maven command 'mvn clean install' from corresponding directory.
-* Run the project using maven command 'mvn spring-boot:run' from same directory.
 * A sample key(4F6D83MH53) is provided in the project to be used via postman.
 ![alt text](https://github.com/stasim101/property_management_api/blob/main/image/Entering_API_Key.jpg)
 * Test the creation functionality and note the property id mentioned as response in postman.
-![alt text](https://github.com/stasim101/property_management_api/blob/main/image/CreateProperty.jpg)
+![alt text](https://github.com/stasim101/property_management_api/blob/main/image/Create.jpg)
+* Test the updating functionality, by selecting patch request and changing the address in JSON.
+![alt text](https://github.com/stasim101/property_management_api/blob/main/image/Update.jpg)
+* Test the approve functionality, by clear the JSON fom body. By sending id, it approves the property.
+![alt text](https://github.com/stasim101/property_management_api/blob/main/image/Approve.jpg)
+* Test the search functionality, by sending GET request.
+![alt text](https://github.com/stasim101/property_management_api/blob/main/image/Search.jpg)
+* Additional functionality to create API Key is added. You can have a look on.
+![alt text](https://github.com/stasim101/property_management_api/blob/main/image/GenerateAPI.jpg)
+
 
 ## Authors
-
-Imran Ansari
-email - stasim101@gmail.com
-
-## License
-This project is licensed under the MIT License.
-
+stasim101@gmail.com
