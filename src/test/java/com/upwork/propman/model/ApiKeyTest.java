@@ -20,7 +20,7 @@ class ApiKeyTest {
 	void testGetId() {
 
 		ApiKey apiKey = apiKeyRepository.save(new ApiKey("testUser", "testKey"));
-		Optional<ApiKey> optionalApiKey = apiKeyRepository.findByUsername("testUser");
+		Optional<ApiKey> optionalApiKey = apiKeyRepository.findByKey("testKey");
 		ApiKey actual = null;
 		if (optionalApiKey.isPresent())
 			actual = optionalApiKey.get();

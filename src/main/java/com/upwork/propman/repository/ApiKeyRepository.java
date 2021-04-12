@@ -10,6 +10,6 @@ import com.upwork.propman.model.ApiKey;
 @Repository
 public interface ApiKeyRepository extends CrudRepository<ApiKey, Integer> {
 
-	Optional<ApiKey> findByUsername(String username);
+	Optional<ApiKey> findByKey(String key);
 
 }

@@ -6,6 +6,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import com.upwork.propman.model.ApiKey;
 import com.upwork.propman.repository.ApiKeyRepository;
 
@@ -16,7 +17,7 @@ public class ApiKeyService {
 
 	@Autowired
 	private ApiKeyRepository apiKeyRepository;
-	
+
 	private static final String ALPHA_NUMERIC_STRING = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
 
 	public String generateKey(String username) {
@@ -40,6 +41,15 @@ public class ApiKeyService {
 
 	}
 
+	public boolean validateKey(String key) {
+		Optional<ApiKey> optionalApiKey = apiKeyRepository.findByKey(key);
+
+		if (optionalApiKey.isPresent())
+			return optionalApiKey.get().getKey().equals(key);
+
+		return false;
+	}
+
 	public String getRandomAlphaNumeric() {
 		// count is the length of random string to create.
 		int count = 10;
@@ -49,15 +59,5 @@ public class ApiKeyService {
 			builder.append(ALPHA_NUMERIC_STRING.charAt(character));
 		}
 		return builder.toString();
-	}
-
-	public String getKey(String username) {
-
-		Optional<ApiKey> optionalApiKey = apiKeyRepository.findByUsername(username);
-
-		if (optionalApiKey.isPresent())
-			return optionalApiKey.get().getKey();
-
-		return "";
 	}
 }
