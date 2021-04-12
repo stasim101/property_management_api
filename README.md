@@ -25,10 +25,7 @@ It is an POC created by keeping an assumption of SpeedHome in initial stage.
 
 * Download the source code from reposiotry and unpack the zip file.
 * Run 'mvn clean install'
-
-```
-https://github.com/stasim101/property_management_api/blob/main/image/mvn_clean_install.jpg
-```
+![alt text](https://github.com/stasim101/property_management_api/blob/main/image/mvn_clean_install.jpg)
 
 ## Authors
 
