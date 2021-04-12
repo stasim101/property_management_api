@@ -24,17 +24,18 @@ It is an POC created by keeping an assumption of SpeedHome in initial stage.
 ### Executing program
 
 * Download the source code from reposiotry and unpack the zip file.
-* Run 'mvn clean install'
-![alt text](https://github.com/stasim101/property_management_api/blob/main/image/mvn_clean_install.jpg)
+* Build the project by running maven command 'mvn clean install' from corresponding directory.
+* Run the project using maven command 'mvn spring-boot:run' from same directory.
+* A sample key(4F6D83MH53) is provided in the project to be used via postman.
+![alt text](https://github.com/stasim101/property_management_api/blob/main/image/Entering_API_Key.jpg)
+* Test the creation functionality and note the property id mentioned as response in postman.
+![alt text](https://github.com/stasim101/property_management_api/blob/main/image/CreateProperty.jpg)
 
 ## Authors
 
-Contributors names and contact info
-
-ex. Dominique Pizzie  
-ex. [@DomPizzie](https://twitter.com/dompizzie)
+Imran Ansari
+email - stasim101@gmail.com
 
 ## License
-
 This project is licensed under the MIT License.
 
